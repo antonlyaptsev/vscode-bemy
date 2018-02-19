@@ -1,6 +1,6 @@
 {
     "name": "vscode-bemy",
-    "displayName": "bemyWrapper",
+    "displayName": "vscode-bemy",
     "description": "Bemy wrapper to call it from context menu",
     "version": "1.0.0",
     "publisher": "alyaptsev",
@@ -18,7 +18,17 @@
         "onCommand:extension.genBEMFile"
     ],
     "main": "./out/extension",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "MIT",
+    "icon": "images/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/antonlyaptsev/vscode-bemy.git"
+    },
+    "bugs": {
+        "url": "https://github.com/antonlyaptsev/vscode-bemy/issues",
+        "email": "anton.lyaptsev@yandex.ru"
+    },
+    "homepage": "https://github.com/antonlyaptsev/vscode-bemy/blob/master/README.md",
     "contributes": {
         "commands": [
             {
