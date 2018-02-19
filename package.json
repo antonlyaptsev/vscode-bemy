@@ -1,0 +1,56 @@
+{
+    "name": "vscode-bemy",
+    "displayName": "bemyWrapper",
+    "description": "Bemy wrapper to call it from context menu",
+    "version": "1.0.0",
+    "publisher": "alyaptsev",
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "bem",
+        "bemy"
+    ],
+    "activationEvents": [
+        "onCommand:extension.genBEMFile"
+    ],
+    "main": "./out/extension",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.genBEMFile",
+                "title": "New BEM file"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "explorerResourceIsFolder",
+                    "command": "extension.genBEMFile",
+                    "group": "@bem"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/node": "^7.0.43",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {
+        "bemy": "^3.8.0",
+        "rxjs": "^5.5.6"
+    }
+}
