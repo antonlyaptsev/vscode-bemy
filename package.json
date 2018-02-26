@@ -2,7 +2,7 @@
     "name": "vscode-bemy",
     "displayName": "vscode-bemy",
     "description": "Bemy wrapper to call it from context menu",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "publisher": "alyaptsev",
     "engines": {
         "vscode": "^1.0.0"
@@ -15,7 +15,7 @@
         "bemy"
     ],
     "activationEvents": [
-        "onCommand:extension.genBEMFile"
+        "onCommand:extension.newBEMFile"
     ],
     "main": "./out/extension",
     "license": "MIT",
@@ -30,9 +30,32 @@
     },
     "homepage": "https://github.com/antonlyaptsev/vscode-bemy/blob/master/README.md",
     "contributes": {
+        "configuration": {
+            "title": "VS Code Bemy wrapper configuration",
+            "type": "object",
+            "properties": {
+                "bemy.create": {
+                    "type": "object",
+                    "description": "Configuration of create task",
+                    "scope": "resource",
+                    "default": {
+                        "addToGit": true,
+                        "openOnAdd": false
+                    },
+                    "properties": {
+                        "addToGit": {
+                            "scope": "resource",
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Exec git add for each created file"
+                        }
+                    }
+                }
+            }
+        },
         "commands": [
             {
-                "command": "extension.genBEMFile",
+                "command": "extension.newBEMFile",
                 "title": "New BEM file"
             }
         ],
@@ -40,11 +63,31 @@
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder",
-                    "command": "extension.genBEMFile",
+                    "command": "extension.newBEMFile",
+                    "group": "@bem"
+                }
+            ],
+            "editor/context": [
+                {
+                    "when": "editorLangId == javascript",
+                    "command": "extension.newBEMFile",
+                    "group": "@bem"
+                },
+                {
+                    "when": "editorLangId == css",
+                    "command": "extension.newBEMFile",
                     "group": "@bem"
                 }
             ]
-        }
+        },
+        "keybindings":[
+            {
+                "command": "extension.newBEMFile",
+                "key": "ctrl+2",
+                "mac": "cmd+2",
+                "when": "editorTextFocus"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
