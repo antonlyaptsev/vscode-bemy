@@ -1,8 +1,8 @@
 {
     "name": "vscode-bemy",
     "displayName": "vscode-bemy",
-    "description": "Bemy wrapper to call it from context menu",
-    "version": "1.1.0",
+    "description": "VS Code Bemy wrapper",
+    "version": "1.0.0",
     "publisher": "alyaptsev",
     "engines": {
         "vscode": "^1.0.0"
@@ -15,7 +15,9 @@
         "bemy"
     ],
     "activationEvents": [
-        "onCommand:extension.newBEMFile"
+        "onCommand:extension.bemyCreate",
+        "onCommand:extension.bemyRename",
+        "onCommand:extension.bemyDefault"
     ],
     "main": "./out/extension",
     "license": "MIT",
@@ -31,60 +33,127 @@
     "homepage": "https://github.com/antonlyaptsev/vscode-bemy/blob/master/README.md",
     "contributes": {
         "configuration": {
-            "title": "VS Code Bemy wrapper configuration",
+            "title": "VS Code Bemy configuration",
             "type": "object",
             "properties": {
-                "bemy.create": {
-                    "type": "object",
-                    "description": "Configuration of create task",
-                    "scope": "resource",
-                    "default": {
-                        "addToGit": true,
-                        "openOnAdd": false
-                    },
-                    "properties": {
-                        "addToGit": {
-                            "scope": "resource",
-                            "type": "boolean",
-                            "default": true,
-                            "description": "Exec git add for each created file"
-                        }
-                    }
+                "bemy.addToGit": {
+                    "type": "boolean",
+                    "description": "Adding into git for created or renamed files (it calls git add for each file)",
+                    "default": true
+                },
+                "bemy.deepRename": {
+                    "type": "boolean",
+                    "description": "Turn on deep mode with renaming of files content",
+                    "default": true
+                },
+                "bemy.configPath": {
+                    "type": "string",
+                    "description": "Path of your own config json file",
+                    "default": "${workspaceRoot}/.bemy.json"
                 }
             }
         },
         "commands": [
             {
-                "command": "extension.newBEMFile",
-                "title": "New BEM file"
+                "command": "extension.bemyCreate",
+                "title": "BEMY create..."
+            },
+            {
+                "command": "extension.bemyRename",
+                "title": "BEMY rename..."
+            },
+            {
+                "command": "extension.bemyDefault",
+                "title": "BEMY default"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder",
-                    "command": "extension.newBEMFile",
+                    "command": "extension.bemyCreate",
+                    "group": "@bem"
+                },
+                {
+                    "when": "resourceLangId == javascript",
+                    "command": "extension.bemyCreate",
+                    "group": "@bem"
+                },
+                {
+                    "when": "resourceLangId == css",
+                    "command": "extension.bemyCreate",
+                    "group": "@bem"
+                },
+                {
+                    "when": "explorerResourceIsFolder",
+                    "command": "extension.bemyRename",
+                    "group": "@bem"
+                },
+                {
+                    "when": "resourceLangId == javascript",
+                    "command": "extension.bemyRename",
+                    "group": "@bem"
+                },
+                {
+                    "when": "resourceLangId == css",
+                    "command": "extension.bemyRename",
+                    "group": "@bem"
+                },
+                {
+                    "command": "extension.bemyDefault",
                     "group": "@bem"
                 }
             ],
             "editor/context": [
                 {
                     "when": "editorLangId == javascript",
-                    "command": "extension.newBEMFile",
+                    "command": "extension.bemyCreate",
                     "group": "@bem"
                 },
                 {
                     "when": "editorLangId == css",
-                    "command": "extension.newBEMFile",
+                    "command": "extension.bemyCreate",
+                    "group": "@bem"
+                },
+                {
+                    "when": "editorLangId == javascript",
+                    "command": "extension.bemyRename",
+                    "group": "@bem"
+                },
+                {
+                    "when": "editorLangId == css",
+                    "command": "extension.bemyRename",
+                    "group": "@bem"
+                },
+                {
+                    "when": "editorLangId == javascript",
+                    "command": "extension.bemyDefault",
+                    "group": "@bem"
+                },
+                {
+                    "when": "editorLangId == css",
+                    "command": "extension.bemyDefault",
                     "group": "@bem"
                 }
             ]
         },
-        "keybindings":[
+        "keybindings": [
             {
-                "command": "extension.newBEMFile",
+                "command": "extension.bemyCreate",
                 "key": "ctrl+2",
                 "mac": "cmd+2",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.bemyRename",
+                "key": "ctrl+3",
+                "mac": "cmd+3",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.bemyDefault",
+                "key": "ctrl+4",
+                "mac": "cmd+4",
                 "when": "editorTextFocus"
             }
         ]

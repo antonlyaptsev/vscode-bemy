@@ -1,5 +1,7 @@
 import { WorkspaceConfiguration } from 'vscode';
 
-export interface CreateConfig extends WorkspaceConfiguration {
-    addToGit: boolean
-};
+export interface Config extends WorkspaceConfiguration {
+    addToGit: boolean;
+    deepRename: boolean;
+    configPath: string;
+}
